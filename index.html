@@ -5,7 +5,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planes de Internet</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .header {
+            background-color: #e30613;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 16px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .plans-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .plan {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .plan h2 {
+            font-size: 24px;
+            color: #e30613;
+            margin-bottom: 10px;
+        }
+
+        .promotion {
+            font-size: 14px;
+            background-color: #fce4e4;
+            color: #e30613;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .price {
+            font-size: 32px;
+            color: #e30613;
+            margin: 10px 0;
+        }
+
+        .price span {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .details {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .normal-price {
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .cta {
+            background-color: #e30613;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            display: inline-block;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .cta:hover {
+            background-color: #c10510;
+        }
+
+        .features {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .features li {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -64,111 +174,6 @@
 </body>
 </html>
 
-/* CSS (styles.css) */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
-
-.header {
-    background-color: #e30613;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-}
-
-.menu {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    font-size: 16px;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.plans-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-}
-
-.plan {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.plan h2 {
-    font-size: 24px;
-    color: #e30613;
-    margin-bottom: 10px;
-}
-
-.promotion {
-    font-size: 14px;
-    background-color: #fce4e4;
-    color: #e30613;
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    display: inline-block;
-}
-
-.price {
-    font-size: 32px;
-    color: #e30613;
-    margin: 10px 0;
-}
-
-.price span {
-    font-size: 16px;
-    color: #333;
-}
-
-.details {
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 10px;
-}
-
-.normal-price {
-    font-size: 16px;
-    color: #333;
-    font-weight: bold;
-}
-
-.cta {
-    background-color: #e30613;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    margin-top: 20px;
-    display: inline-block;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.cta:hover {
-    background-color: #c10510;
-}
-
-.features {
-    margin-top: 20px;
-    font-size: 14px;
-    text-align: left;
-}
 
 .features li {
     margin: 5px 0;
