@@ -3,113 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Client Details</title>
+    <title>sisnetel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+
+        .plans-container {
+            display: flex;
+            gap: 20px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+
+        .plan {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .plan h2 {
+            color: #e30613;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 32px;
+            color: #e30613;
+            margin: 10px 0;
+        }
+
+        .promotion {
+            font-size: 14px;
+            background-color: #f0f0f0;
+            padding: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .normal-price {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .cta {
+            background-color: #e30613;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: inline-block;
             margin-top: 20px;
+            border-radius: 5px;
+            font-weight: bold;
         }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 10px;
+
+        .features {
+            margin-top: 20px;
+            font-size: 14px;
             text-align: left;
         }
-        th {
-            background-color: #f4f4f4;
+
+        .features li {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Client Details</h1>
-        <div id="data-container">
-            <p>Loading data...</p>
+    sisnetel es la mejor empresa
+</body>
+<body>
+        
+    <div class="plans-container">
+        <!-- Plan 200 Megas -->
+        <div class="plan">
+            <h2>200 MEGAS</h2>
+            <p class="price">$9.99 <span style="font-size: 16px;">Mensuales</span></p>
+            <p class="promotion">Primer mes gratis</p>
+            <p class="normal-price">Precio normal: $19.99</p>
+            <a href="#" class="cta">CONTRATA AHORA</a>
+            <ul class="features">
+                <li>Velocidad simétrica hasta 200 MEGAS</li>
+                <li>Router 5G incluido</li>
+                <li>Cero costo de instalación</li>
+            </ul>
+        </div>
+
+        <!-- Plan 400 Megas -->
+        <div class="plan">
+            <h2>400 MEGAS</h2>
+            <p class="price">$12.50 <span style="font-size: 16px;">Mensuales</span></p>
+            <p class="promotion">Primer mes gratis</p>
+            <p class="normal-price">Precio normal: $24.99</p>
+            <a href="#" class="cta">CONTRATA AHORA</a>
+            <ul class="features">
+                <li>Velocidad simétrica hasta 400 MEGAS</li>
+                <li>Router WiFi 6 incluido</li>
+                <li>Cero costo de instalación</li>
+            </ul>
+        </div>
+
+        <!-- Plan 700 Megas -->
+        <div class="plan">
+            <h2>700 MEGAS</h2>
+            <p class="price">$14.99 <span style="font-size: 16px;">Mensuales</span></p>
+            <p class="promotion">Primer mes gratis</p>
+            <p class="normal-price">Precio normal: $29.99</p>
+            <a href="#" class="cta">CONTRATA AHORA</a>
+            <ul class="features">
+                <li>Velocidad simétrica hasta 700 MEGAS</li>
+                <li>Router WiFi 6 incluido</li>
+                <li>Cero costo de instalación</li>
+            </ul>
         </div>
     </div>
-
-    <script>
-        // API URL and headers
-        const apiUrl = "https://sistema.sisnetel.com/api/v1/GetClientsDetails";
-        const headers = {
-            "Authorization": "Bearer RkNPYUU2bUd0UUZyOVl5cGlnc3JVZz09",
-            "Content-Type": "application/json"
-        };
-
-        // Request body
-        const requestBody = {
-            token: "RkNPYUU2bUd0UUZyOVl5cGlnc3JVZz09",
-            cedula: "1312908286"
-        };
-
-        // Fetch data from the API
-        async function fetchClientDetails() {
-            try {
-                const response = await fetch(apiUrl, {
-                    method: "POST",
-                    headers: headers,
-                    body: JSON.stringify(requestBody)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                displayClientDetails(data);
-            } catch (error) {
-                document.getElementById("data-container").innerHTML = `<p>Error loading data: ${error.message}</p>`;
-            }
-        }
-
-        // Display client details in the DOM
-        function displayClientDetails(data) {
-            if (data.estado !== "exito") {
-                document.getElementById("data-container").innerHTML = `<p>Failed to retrieve data</p>`;
-                return;
-            }
-
-            const client = data.datos[0];
-            const { id, nombre, estado } = client;
-            const totalFacturas = client.facturacion.total_facturas;
-
-            const html = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Status</th>
-                            <th>Total Invoices</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>${id}</td>
-                            <td>${nombre}</td>
-                            <td>${estado}</td>
-                            <td>${totalFacturas}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            `;
-
-            document.getElementById("data-container").innerHTML = html;
-        }
-
-        // Call the function to fetch and display data
-        fetchClientDetails();
-    </script>
+    
 </body>
 </html>
-
