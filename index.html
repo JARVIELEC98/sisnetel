@@ -1,141 +1,115 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pago de Facturas Sisnetel</title>
-  <script>
-    async function obtenerDetallesCliente() {
-      const cedula = document.getElementById("cedula").value;
-      const url = "https://sistema.sisnetel.com/api/v1/GetClientsDetails";
-      const token = "RkNPYUU2bUd0UUZyOVl5cGlnc3JVZz09";
-      
-      const data = {
-        token: token,
-        cedula: cedula
-      };
-      
-      const config = {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      };
-
-      try {
-        const response = await fetch(url, config);
-        const result = await response.json();
-
-        if (result.estado === "exito" && result.datos.length > 0) {
-          const cliente = result.datos[0];
-          document.getElementById("clienteInfo").innerHTML = `
-            <strong>Nombre:</strong> ${cliente.nombre} <br>
-            <strong>Email:</strong> ${cliente.correo} <br>
-            <strong>Estado:</strong> ${cliente.estado} <br>
-            <strong>Total Facturas:</strong> ${cliente.facturacion.total_facturas} <br>
-            <strong>Facturas No Pagadas:</strong> ${cliente.facturacion.facturas_nopagadas} <br>
-          `;
-          
-          // Llamamos a la función para mostrar facturas
-          listarFacturas(cliente.id);
-        } else {
-          alert("No se encontraron datos para la cédula ingresada.");
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Client Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
-      } catch (error) {
-        console.error("Error al obtener detalles del cliente:", error.message);
-      }
-    }
-
-    async function listarFacturas(idCliente) {
-      const url = "https://sistema.sisnetel.com/api/v1/GetInvoices";
-      const token = "RkNPYUU2bUd0UUZyOVl5cGlnc3JVZz09";
-
-      const data = {
-        token: token,
-        idcliente: idCliente,
-        limit: 25,
-        estado: 1
-      };
-
-      const config = {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      };
-
-      try {
-        const response = await fetch(url, config);
-        const result = await response.json();
-
-        if (result.estado === "exito" && result.facturas.length > 0) {
-          let facturasHTML = "<strong>Facturas:</strong><br>";
-
-          result.facturas.forEach(factura => {
-            facturasHTML += `
-              <p>ID Factura: ${factura.id}, Total: ${factura.total2}, Estado: ${factura.estado}
-              <button onclick="pagarFactura(${factura.id}, ${factura.total})">Pagar</button></p>
-            `;
-          });
-
-          document.getElementById("facturasList").innerHTML = facturasHTML;
-        } else {
-          alert("No hay facturas disponibles.");
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
-      } catch (error) {
-        console.error("Error al obtener las facturas:", error.message);
-      }
-    }
-
-    async function pagarFactura(idFactura, total) {
-      const url = "https://sistema.sisnetel.com/api/v1/PaidInvoice";
-      const token = "RkNPYUU2bUd0UUZyOVl5cGlnc3JVZz09";
-      const data = {
-        token: token,
-        idfactura: idFactura,
-        pasarela: "efectivo", // Método de pago
-        cantidad: total
-      };
-
-      const config = {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      };
-
-      try {
-        const response = await fetch(url, config);
-        const result = await response.json();
-
-        if (result.estado === "exito") {
-          alert("Pago registrado correctamente.");
-        } else {
-          alert("Error al realizar el pago: " + result.salida);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-      } catch (error) {
-        console.error("Error al pagar la factura:", error.message);
-      }
-    }
-  </script>
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
-  <h1>Pago de Facturas Sisnetel</h1>
+    <div class="container">
+        <h1>Client Details</h1>
+        <div id="data-container">
+            <p>Loading data...</p>
+        </div>
+    </div>
 
-  <div>
-    <label for="cedula">Ingrese el número de cédula:</label>
-    <input type="text" id="cedula" placeholder="Número de cédula">
-    <button onclick="obtenerDetallesCliente()">Buscar Cliente</button>
-  </div>
+    <script>
+        // API URL and headers
+        const apiUrl = "https://sistema.sisnetel.com/api/v1/GetClientsDetails";
+        const headers = {
+            "Authorization": "Bearer RkNPYUU2bUd0UUZyOVl5cGlnc3JVZz09",
+            "Content-Type": "application/json"
+        };
 
-  <div id="clienteInfo" style="margin-top: 20px;"></div>
-  
-  <div id="facturasList" style="margin-top: 20px;"></div>
+        // Request body
+        const requestBody = {
+            token: "RkNPYUU2bUd0UUZyOVl5cGlnc3JVZz09",
+            cedula: "1312908286"
+        };
+
+        // Fetch data from the API
+        async function fetchClientDetails() {
+            try {
+                const response = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: headers,
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                displayClientDetails(data);
+            } catch (error) {
+                document.getElementById("data-container").innerHTML = `<p>Error loading data: ${error.message}</p>`;
+            }
+        }
+
+        // Display client details in the DOM
+        function displayClientDetails(data) {
+            if (data.estado !== "exito") {
+                document.getElementById("data-container").innerHTML = `<p>Failed to retrieve data</p>`;
+                return;
+            }
+
+            const client = data.datos[0];
+            const { id, nombre, estado } = client;
+            const totalFacturas = client.facturacion.total_facturas;
+
+            const html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Total Invoices</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${id}</td>
+                            <td>${nombre}</td>
+                            <td>${estado}</td>
+                            <td>${totalFacturas}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById("data-container").innerHTML = html;
+        }
+
+        // Call the function to fetch and display data
+        fetchClientDetails();
+    </script>
 </body>
 </html>
+
