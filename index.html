@@ -1,177 +1,119 @@
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planes de Internet</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        .planes-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            flex-wrap: wrap;
-        }
-        .plan {
-            width: 300px;
-            background: #f8f8f8;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-        .titulo {
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .megas {
-            font-size: 24px;
-            color: #000;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .precio-promo {
-            display: flex;
-            align-items: baseline;
-            justify-content: center;
-            gap: 5px;
-            margin: 10px 0;
-        }
-        .signo {
-            color: #000;
-            font-size: 20px;
-        }
-        .cantidad {
-            font-size: 36px;
-            font-weight: bold;
-            color: #000;
-        }
-        .periodo {
-            color: #ff0000;
-            font-size: 14px;
-        }
-        .boton {
-            background: #ff0000;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            display: inline-block;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-        .detalles {
-            font-size: 14px;
-            color: #666;
-            margin: 10px 0;
-        }
-        .precio-normal {
-            background: #eee;
-            padding: 5px 10px;
-            display: inline-block;
-            margin: 10px 0;
-            border-radius: 4px;
-        }
-        .icon {
-            width: 30px;
-            height: 30px;
-        }
-    </style>
+    <title>sisnetel</title>
+    <link rel="preload" href="css/normalize.css" as="normalize">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Krub:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preload" href="css/styles.css" as="styles">
+    <link  href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-    <div class="planes-container">
-        <!-- Plan Hogar -->
-        <div class="plan">
-            <div class="titulo">
-                <img src="/api/placeholder/30/30" alt="casa" class="icon">
-                <h2>PLANES HOGAR</h2>
-            </div>
-            <div class="megas">200 MEGAS</div>
-            <div>Primer mes gratis</div>
-            <div class="precio-promo">
-                <span class="signo">$</span>
-                <span class="cantidad">9</span>
-                <span class="signo">.99</span>
-                <span class="periodo">Mensuales</span>
-            </div>
-            <div>** Precio aplica al 2do y 3er mes</div>
-            <div class="precio-normal">
-                <span>$19.99</span> Mensuales
-            </div>
-            <a href="#" class="boton">CONTRATA AHORA</a>
-            <div class="detalles">
-                <p>Velocidad simétrica</p>
-                <p>hasta 200 MEGAS</p>
-                <p>de subida y bajada</p>
-                <p>Router 5G incluido</p>
-                <p>cero costo de instalación</p>
-            </div>
+   <header>
+        <h1 class="titulo" >Constru Jarvielec S.A. <span>Proyectos Eléctricos</span></h1>
+    </header> 
+    <div class="nav-bg">
+    <nav class="navegacion-principal contenedor">
+        <a href="#">Inicio</a>
+        <a href="#">Sobre mi</a>
+        <a href="#">Clientes</a>
+        <a href="#">Contacto</a>
+    </nav>
+</div>
+        <section class="hero">
+        <div class="contenido-hero">
+            <h2>CONSTRUCCIONES ELECTRICAS</h2>
+        <svg
+            xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin"
+            width="88"  height="88" viewBox="0 0 24 24" fill="none"
+            stroke="#FFC107" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+            <path d="M11.87 21.48a1.992 1.992 0 0 1 -1.283 -.58l-4.244 -4.243a8 8 0 1 1 13.355 -3.474" />
+            <path d="M15 19l2 2l4 -4" />
+        </svg>
+        <P>Manta Ecuador</P>
+        <a href="#">Contactar</a>
         </div>
+        
+    </section> 
+    <main>
+        <h2>Mis servicios</h2>
+        <section>
+            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" 
+            stroke="#000000" stroke-linecap="round" stroke-linejoin="round" 
+            width="88" height="88" stroke-width="1.5">  
+                <path d="M6 21h6"></path> <path d="M9 21v-18l-6 6h18"></path> <path d="M9 3l10 6"></path> <path d="M17 9v4a2 2 0 1 1 -2 2"></path> </svg> 
+            <h3>Obras electricas</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Distinctio magnam, adipisci amet ipsa possimus nulla ratione, ex facilis 
+                sit eveniet placeat, nihil voluptas hic sunt culpa. 
+                Vel laboriosam ipsum explicabo.</p>
+            </section>
+            <section>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" 
+                stroke="#000000" stroke-linecap="round" stroke-linejoin="round" 
+                width="88" height="88" stroke-width="1.5"> 
+                    <path d="M13 9a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1v-10z"></path>
+                    <path d="M18 8v-3a1 1 0 0 0 -1 -1h-13a1 1 0 0 0 -1 1v12a1 1 0 0 0 1 1h9"></path> 
+                    <path d="M16 9h2"></path> 
+                </svg> 
+                <h3>Proyectos Eléctricos</h3>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Distinctio magnam, adipisci amet ipsa possimus nulla ratione, ex facilis 
+                    sit eveniet placeat, nihil voluptas hic sunt culpa. 
+                    Vel laboriosam ipsum explicabo.</p>
+                </section>
+                <section>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" 
+                    stroke="#000000" stroke-linecap="round" stroke-linejoin="round" 
+                    width="88" height="88" stroke-width="1.5"> 
+                    <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
+                     <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path> <path d="M15 3v4"></path>
+                      <path d="M7 3v4"></path> <path d="M3 11h16"></path> <path d="M18 16.496v1.504l1 1"></path> 
+                    </svg> 
+            <h3>Materiales Eléctricos</h3>
+             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Distinctio magnam, adipisci amet ipsa possimus nulla ratione, ex facilis 
+                sit eveniet placeat, nihil voluptas hic sunt culpa. 
+                Vel laboriosam ipsum explicabo.</p>
+        </section>
+                  
+    </main>
+        <section>
+            <H2>Contacto</H2>
+            <form action="">
+                <fieldset>
+                    <legend>Te contactamos dejanos tus datos</legend>
+                    <div>
+                        <label>Nombres</label>
+                        <input type="text" placeholder="Nombres">
+                    </div>
+                    <div>
+                        <label>Teléfono</label>
+                        <input type="tel" placeholder="Su Teléfono">
+                    </div>
+                    <div>
+                        <label>Correo</label>
+                        <input type="email" placeholder="Tu correo">
+                    </div>
+                    <div>
+                        <label>Mensaje</label>
+                        <textarea></textarea>
+                    </div>
+                    <div>
+                        <input type="submit" value="Enviar">
+                    </div>
 
-        <!-- Plan Negocio -->
-        <div class="plan">
-            <div class="titulo">
-                <img src="/api/placeholder/30/30" alt="negocio" class="icon">
-                <h2>PLANES NEGOCIO</h2>
-            </div>
-            <div class="megas">400 MEGAS</div>
-            <div>Primer mes gratis</div>
-            <div class="precio-promo">
-                <span class="signo">$</span>
-                <span class="cantidad">12</span>
-                <span class="signo">.50</span>
-                <span class="periodo">Mensuales</span>
-            </div>
-            <div>** Precio aplica al 2do y 3er mes</div>
-            <div class="precio-normal">
-                <span>$24.99</span> Mensuales
-            </div>
-            <a href="#" class="boton">CONTRATA AHORA</a>
-            <div class="detalles">
-                <p>Velocidad simétrica</p>
-                <p>hasta 400 MEGAS</p>
-                <p>de subida y bajada</p>
-                <p>Router WIFI 6 incluido</p>
-                <p>cero costo de instalación</p>
-            </div>
-        </div>
+                </fieldset>
 
-        <!-- Plan Internet + TV -->
-        <div class="plan">
-            <div class="titulo">
-                <img src="/api/placeholder/30/30" alt="tv" class="icon">
-                <h2>INTERNET +TV</h2>
-            </div>
-            <div class="megas">700 MEGAS</div>
-            <div>Primer mes gratis</div>
-            <div class="precio-promo">
-                <span class="signo">$</span>
-                <span class="cantidad">14</span>
-                <span class="signo">.99</span>
-                <span class="periodo">Mensuales</span>
-            </div>
-            <div>** Precio aplica al 2do y 3er mes</div>
-            <div class="precio-normal">
-                <span>$29.99</span> Mensuales
-            </div>
-            <a href="#" class="boton">CONTRATA AHORA</a>
-            <div class="detalles">
-                <p>Velocidad simétrica</p>
-                <p>hasta 700 MEGAS</p>
-                <p>de subida y bajada</p>
-                <p>Router WIFI 6 incluido</p>
-                <p>cero costo de instalación</p>
-            </div>
-        </div>
-    </div>
+            </form>
+         </section>
+    <footer>
+        <p>Todos los derechos Reservados JARVIELEC</p>
+    </footer>        
 </body>
 </html>
