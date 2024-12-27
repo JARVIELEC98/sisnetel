@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Clientes y Facturas</title>
+</head>
+<body>
+  <h1>Consulta de Cliente y Facturas</h1>
+
+  <div>
+    <label for="cedula">Cédula:</label>
+    <input type="text" id="cedula">
+    <button onclick="consultarCliente()">Buscar Cliente</button>
+  </div>
+
+  <div id="cliente-info"></div>
+  <div id="facturas"></div>
+
+  <script>
+    async function consultarCliente() {
+      const cedula = document.getElementById("cedula").value;
+      const clienteInfo = document.getElementById("cliente-info");
+      const facturasDiv = document.getElementById("facturas");
+      clienteInfo.innerHTML = "";
+      facturasDiv.innerHTML = "";
+
+      try {
+        const clienteResponse = await fetch('/api/cliente', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cedula }),
+        });
+
+        if (!clienteResponse.ok) {
+          clienteInfo.innerHTML = "<p>Cliente no encontrado.</p>";
+          return;
+        }
+
+        const cliente = await clienteResponse.json();
+        clienteInfo.innerHTML = `
+          <h2>Datos del Cliente</h2>
+          <p>ID: ${cliente.id}</p>
+          <p>Nombre: ${cliente.nombre}</p>
+          <p>Total Facturas: ${cliente.facturacion.total_facturas}</p>
+          <p>Estado: ${cliente.estado}</p>
+        `;
+
+        const facturasResponse = await fetch('/api/facturas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idcliente: cliente.id }),
+        });
+
+        const facturas = await facturasResponse.json();
+        facturasDiv.innerHTML = "<h2>Facturas</h2>";
+
+        facturas.forEach(factura => {
+          facturasDiv.innerHTML += `
+            <div>
+              <p>ID: ${factura.id}</p>
+              <p>Total: $${factura.total}</p>
+              <p>Estado: ${factura.estado}</p>
+              <button onclick="pagarFactura(${factura.id}, ${factura.total})">Pagar</button>
+            </div>
+          `;
+        });
+      } catch (error) {
+        clienteInfo.innerHTML = `<p>Error al consultar cliente: ${error.message}</p>`;
+      }
+    }
+
+    async function pagarFactura(idfactura, total) {
+      try {
+        const response = await fetch('/api/pagar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idfactura, total }),
+        });
+
+        const result = await response.json();
+        alert("Pago realizado con éxito: " + JSON.stringify(result));
+      } catch (error) {
+        alert("Error al realizar el pago: " + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
