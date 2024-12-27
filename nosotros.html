@@ -1,89 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestión de Clientes y Facturas</title>
+  <title>Consulta de Cliente</title>
 </head>
 <body>
-  <h1>Consulta de Cliente y Facturas</h1>
+  <h1>Consulta de Cliente</h1>
+  <label for="cedula">Ingrese la cédula:</label>
+  <input type="number" id="cedula" placeholder="Ingrese número de cédula">
+  <button onclick="consultarCliente()">Consultar</button>
 
-  <div>
-    <label for="cedula">Cédula:</label>
-    <input type="text" id="cedula">
-    <button onclick="consultarCliente()">Buscar Cliente</button>
-  </div>
-
-  <div id="cliente-info"></div>
-  <div id="facturas"></div>
+  <h2>Datos del Cliente</h2>
+  <pre id="resultado"></pre>
 
   <script>
     async function consultarCliente() {
+      const url = "https://sistema.sisnetel.com/api/v1/GetClientsDetails";
+      const token = "RkNPYUU2bUd0UUZyOVl5cGlnc3JVZz09";
       const cedula = document.getElementById("cedula").value;
-      const clienteInfo = document.getElementById("cliente-info");
-      const facturasDiv = document.getElementById("facturas");
-      clienteInfo.innerHTML = "";
-      facturasDiv.innerHTML = "";
 
-      try {
-        const clienteResponse = await fetch('/api/cliente', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cedula }),
-        });
-
-        if (!clienteResponse.ok) {
-          clienteInfo.innerHTML = "<p>Cliente no encontrado.</p>";
-          return;
-        }
-
-        const cliente = await clienteResponse.json();
-        clienteInfo.innerHTML = `
-          <h2>Datos del Cliente</h2>
-          <p>ID: ${cliente.id}</p>
-          <p>Nombre: ${cliente.nombre}</p>
-          <p>Total Facturas: ${cliente.facturacion.total_facturas}</p>
-          <p>Estado: ${cliente.estado}</p>
-        `;
-
-        const facturasResponse = await fetch('/api/facturas', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idcliente: cliente.id }),
-        });
-
-        const facturas = await facturasResponse.json();
-        facturasDiv.innerHTML = "<h2>Facturas</h2>";
-
-        facturas.forEach(factura => {
-          facturasDiv.innerHTML += `
-            <div>
-              <p>ID: ${factura.id}</p>
-              <p>Total: $${factura.total}</p>
-              <p>Estado: ${factura.estado}</p>
-              <button onclick="pagarFactura(${factura.id}, ${factura.total})">Pagar</button>
-            </div>
-          `;
-        });
-      } catch (error) {
-        clienteInfo.innerHTML = `<p>Error al consultar cliente: ${error.message}</p>`;
+      if (!cedula) {
+        alert("Por favor, ingrese un número de cédula.");
+        return;
       }
-    }
 
-    async function pagarFactura(idfactura, total) {
+      const data = {
+        token: token,
+        cedula: parseInt(cedula)
+      };
+
+      const config = {
+        headers: {
+          Authorization: `bearer ${token}`
+        }
+      };
+
       try {
-        const response = await fetch('/api/pagar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idfactura, total }),
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `bearer ${token}`
+          },
+          body: JSON.stringify(data)
         });
 
         const result = await response.json();
-        alert("Pago realizado con éxito: " + JSON.stringify(result));
+
+        if (result.estado === "exito" && result.datos.length > 0) {
+          const cliente = result.datos[0];
+          const clienteInfo = `
+            ID del cliente: ${cliente.id}
+            Nombre completo: ${cliente.nombre}
+            Total de facturas: ${cliente.facturacion.total_facturas}
+            PLAN CONTRATADO: ${cliente.servicios.map(servicio => servicio.perfil).join(', ')}
+            Estado del cliente: ${cliente.estado}
+          `;
+          document.getElementById("resultado").textContent = clienteInfo;
+        } else {
+          document.getElementById("resultado").textContent = "No se encontraron datos para la cédula ingresada.";
+        }
       } catch (error) {
-        alert("Error al realizar el pago: " + error.message);
+        document.getElementById("resultado").textContent = `Error al realizar la consulta: ${error.message}`;
       }
     }
   </script>
 </body>
 </html>
+
